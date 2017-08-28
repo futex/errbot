@@ -1,0 +1,9 @@
+[Core]
+Name = bitcoin
+Module = bitcoin
+
+[Python]
+Version = 2+
+
+[Documentation]
+Description = bitcoin plugin

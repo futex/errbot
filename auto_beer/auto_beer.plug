@@ -1,0 +1,9 @@
+[Core]
+Name = auto_beer
+Module = auto_beer
+
+[Python]
+Version = 2+
+
+[Documentation]
+Description = auto_beer plugin
