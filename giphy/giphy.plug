@@ -1,0 +1,9 @@
+[Core]
+Name = giphy
+Module = giphy
+
+[Python]
+Version = 2+
+
+[Documentation]
+Description = It returns a gif from giphy.com.
