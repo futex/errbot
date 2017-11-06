@@ -1,0 +1,9 @@
+[Core]
+Name = shodan
+Module = shodan
+
+[Python]
+Version = 2+
+
+[Documentation]
+Description = shodan plugin

@@ -1,0 +1,9 @@
+[Core]
+Name = ip
+Module = ip
+
+[Python]
+Version = 2+
+
+[Documentation]
+Description = ip plugin

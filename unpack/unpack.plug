@@ -1,0 +1,10 @@
+[Core]
+Name = unpack
+Module = unpack
+DependsOn = malware
+
+[Python]
+Version = 2+
+
+[Documentation]
+Description = unpack plugin

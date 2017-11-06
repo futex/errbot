@@ -1,15 +1,25 @@
 from errbot import BotPlugin, botcmd
 import requests
 import json
+import time
+import cfscrape
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 class bitcoin(BotPlugin):
+
+	headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux i686; rv:52.0) Gecko/20170101 Firefox/52.0'}
 
 	@botcmd
 	def bitcoin(self, msg, args):
 			"""
 			Check the Bitcoin value
 			"""
-			r =requests.get("https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=BTC,USD,EUR", stream=True)
+
+			requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+			
+
+			requests_flare = cfscrape.create_scraper()
+			r = requests_flare.get("https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=BTC,USD,EUR", headers=self.headers)
 			r.raise_for_status()
 
 			data = json.loads(r.content.decode('utf-8'))
@@ -17,7 +27,7 @@ class bitcoin(BotPlugin):
 			conversion_dollar = data['USD']
 			conversion_euro = data['EUR']
 
-			r = requests.get("https://min-api.cryptocompare.com/data/histohour?fsym=BTC&tsym=USD&limit=1", stream=True)
+			r = requests_flare.get("https://min-api.cryptocompare.com/data/histohour?fsym=BTC&tsym=USD&limit=1", headers=self.headers)
 
 			dataset = json.loads(r.content.decode('utf-8'))
 
@@ -34,17 +44,16 @@ class bitcoin(BotPlugin):
 				value = "1 bitcoin = %s EURO or %s USD. Average %s%%" % (conversion_euro, conversion_dollar, percent)
 
 			return value
-			'''if msg.is_direct:
-				self.send(msg.frm, value)
-			else:
-				self.send(msg.to, value)'''
 
 	@botcmd
 	def ltc(self, msg, args):
 			"""
 			Check the Litecoin value
 			"""
-			r =requests.get("https://min-api.cryptocompare.com/data/price?fsym=LTC&tsyms=BTC,USD,EUR", stream=True)
+
+			requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+			requests_flare = cfscrape.create_scraper()
+			r =requests_flare.get("https://min-api.cryptocompare.com/data/price?fsym=LTC&tsyms=BTC,USD,EUR", headers=self.headers)
 			r.raise_for_status()
 
 			data = json.loads(r.content.decode('utf-8'))
@@ -53,7 +62,7 @@ class bitcoin(BotPlugin):
 			conversion_dollar = data['USD']
 			conversion_euro = data['EUR']
 
-			r = requests.get("https://min-api.cryptocompare.com/data/histohour?fsym=LTC&tsym=USD&limit=1", stream=True)
+			r = requests_flare.get("https://min-api.cryptocompare.com/data/histohour?fsym=LTC&tsym=USD&limit=1", headers=self.headers)
 
 			dataset = json.loads(r.content.decode('utf-8'))
 
@@ -76,7 +85,9 @@ class bitcoin(BotPlugin):
 			"""
 			Check the Dash value
 			"""
-			r =requests.get("https://min-api.cryptocompare.com/data/price?fsym=DASH&tsyms=BTC,USD,EUR", stream=True)
+			requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+			requests_flare = cfscrape.create_scraper()
+			r =requests_flare.get("https://min-api.cryptocompare.com/data/price?fsym=DASH&tsyms=BTC,USD,EUR", headers=self.headers)
 			r.raise_for_status()
 
 			data = json.loads(r.content.decode('utf-8'))
@@ -85,7 +96,7 @@ class bitcoin(BotPlugin):
 			conversion_dollar = data['USD']
 			conversion_euro = data['EUR']
 
-			r = requests.get("https://min-api.cryptocompare.com/data/histohour?fsym=DASH&tsym=USD&limit=1", stream=True)
+			r = requests_flare.get("https://min-api.cryptocompare.com/data/histohour?fsym=DASH&tsym=USD&limit=1", headers=self.headers)
 
 			dataset = json.loads(r.content.decode('utf-8'))
 
@@ -108,7 +119,9 @@ class bitcoin(BotPlugin):
 			"""
 			Check the Ripple value
 			"""
-			r =requests.get("https://min-api.cryptocompare.com/data/price?fsym=XRP&tsyms=BTC,USD,EUR", stream=True)
+			requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+			requests_flare = cfscrape.create_scraper()
+			r =requests_flare.get("https://min-api.cryptocompare.com/data/price?fsym=XRP&tsyms=BTC,USD,EUR", headers=self.headers)
 			r.raise_for_status()
 
 			data = json.loads(r.content.decode('utf-8'))
@@ -117,7 +130,7 @@ class bitcoin(BotPlugin):
 			conversion_dollar = data['USD']
 			conversion_euro = data['EUR']
 
-			r = requests.get("https://min-api.cryptocompare.com/data/histohour?fsym=XRP&tsym=USD&limit=1", stream=True)
+			r = requests_flare.get("https://min-api.cryptocompare.com/data/histohour?fsym=XRP&tsym=USD&limit=1", headers=self.headers)
 
 			dataset = json.loads(r.content.decode('utf-8'))
 
@@ -140,7 +153,9 @@ class bitcoin(BotPlugin):
 			"""
 			Check the Monero value
 			"""
-			r =requests.get("https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=BTC,USD,EUR", stream=True)
+			requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+			requests_flare = cfscrape.create_scraper()
+			r =requests_flare.get("https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=BTC,USD,EUR", headers=self.headers)
 			r.raise_for_status()
 
 			data = json.loads(r.content.decode('utf-8'))
@@ -149,7 +164,7 @@ class bitcoin(BotPlugin):
 			conversion_dollar = data['USD']
 			conversion_euro = data['EUR']
 
-			r = requests.get("https://min-api.cryptocompare.com/data/histohour?fsym=XMR&tsym=USD&limit=1", stream=True)
+			r = requests_flare.get("https://min-api.cryptocompare.com/data/histohour?fsym=XMR&tsym=USD&limit=1", headers=self.headers)
 
 			dataset = json.loads(r.content.decode('utf-8'))
 
@@ -173,7 +188,9 @@ class bitcoin(BotPlugin):
 			"""
 			Check the Dogecoin value
 			"""
-			r =requests.get("https://min-api.cryptocompare.com/data/price?fsym=DOGE&tsyms=BTC,USD,EUR", stream=True)
+			requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+			requests_flare = cfscrape.create_scraper()
+			r =requests_flare.get("https://min-api.cryptocompare.com/data/price?fsym=DOGE&tsyms=BTC,USD,EUR", headers=self.headers)
 			r.raise_for_status()
 
 			data = json.loads(r.content.decode('utf-8'))
@@ -182,7 +199,7 @@ class bitcoin(BotPlugin):
 			conversion_dollar = data['USD']
 			conversion_euro = data['EUR']
 
-			r = requests.get("https://min-api.cryptocompare.com/data/histohour?fsym=DOGE&tsym=USD&limit=1", stream=True)
+			r = requests_flare.get("https://min-api.cryptocompare.com/data/histohour?fsym=DOGE&tsym=USD&limit=1", headers=self.headers)
 
 			dataset = json.loads(r.content.decode('utf-8'))
 
@@ -209,7 +226,9 @@ class bitcoin(BotPlugin):
 			"""
 
 			#last hour https://min-api.cryptocompare.com/data/histohour?fsym=ETH&tsym=USD&limit=1
-			r =requests.get("https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR", stream=True)
+			requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+			requests_flare = cfscrape.create_scraper()
+			r =requests_flare.get("https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR", headers=self.headers)
 			r.raise_for_status()
 
 			data = json.loads(r.content.decode('utf-8'))
@@ -218,7 +237,7 @@ class bitcoin(BotPlugin):
 			conversion_dollar = data['USD']
 			conversion_euro = data['EUR']
 
-			r = requests.get("https://min-api.cryptocompare.com/data/histohour?fsym=ETH&tsym=USD&limit=1", stream=True)
+			r = requests_flare.get("https://min-api.cryptocompare.com/data/histohour?fsym=ETH&tsym=USD&limit=1", headers=self.headers)
 
 			dataset = json.loads(r.content.decode('utf-8'))
 
@@ -241,8 +260,9 @@ class bitcoin(BotPlugin):
 			"""
 			Check the Zcash value
 			"""
-
-			r =requests.get("https://min-api.cryptocompare.com/data/price?fsym=ZEC&tsyms=BTC,USD,EUR", stream=True)
+			requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+			requests_flare = cfscrape.create_scraper()
+			r =requests_flare.get("https://min-api.cryptocompare.com/data/price?fsym=ZEC&tsyms=BTC,USD,EUR", headers=self.headers)
 			r.raise_for_status()
 
 			data = json.loads(r.content.decode('utf-8'))
@@ -251,7 +271,7 @@ class bitcoin(BotPlugin):
 			conversion_dollar = data['USD']
 			conversion_euro = data['EUR']
 
-			r = requests.get("https://min-api.cryptocompare.com/data/histohour?fsym=ZEC&tsym=USD&limit=1", stream=True)
+			r = requests_flare.get("https://min-api.cryptocompare.com/data/histohour?fsym=ZEC&tsym=USD&limit=1", headers=self.headers)
 
 			dataset = json.loads(r.content.decode('utf-8'))
 
@@ -274,8 +294,9 @@ class bitcoin(BotPlugin):
 			"""
 			Check the Zcash value
 			"""
-
-			r =requests.get("https://min-api.cryptocompare.com/data/price?fsym=BCH&tsyms=BTC,USD,EUR", stream=True)
+			requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+			requests_flare = cfscrape.create_scraper()
+			r =requests_flare.get("https://min-api.cryptocompare.com/data/price?fsym=BCH&tsyms=BTC,USD,EUR", headers=self.headers)
 			r.raise_for_status()
 
 			data = json.loads(r.content.decode('utf-8'))
@@ -284,7 +305,7 @@ class bitcoin(BotPlugin):
 			conversion_dollar = data['USD']
 			conversion_euro = data['EUR']
 
-			r = requests.get("https://min-api.cryptocompare.com/data/histohour?fsym=BCH&tsym=USD&limit=1", stream=True)
+			r = requests_flare.get("https://min-api.cryptocompare.com/data/histohour?fsym=BCH&tsym=USD&limit=1", headers=self.headers)
 
 			dataset = json.loads(r.content.decode('utf-8'))
 
