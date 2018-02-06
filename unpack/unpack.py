@@ -16,7 +16,7 @@ class unpack(BotPlugin):
 
 	def activate(self):
 		super().activate()
-		self.malware = self.get_plugin('malware').malware
+		self.malw = self.get_plugin('malware').malware
 
 	#Print message to chat
 	def printMessage(self, msg, message):
@@ -80,22 +80,23 @@ class unpack(BotPlugin):
 					with open(filepath, 'wb') as f:
 						for chunk in r.iter_content(1024):
 							f.write(chunk)
+					return True
 				
 				else:
 					self.printMessage(msg, "Failed to retreive the sample, HTTP code: " + str(r.status_code))
-					return
+					return False
 
 			except socket.timeout as e:
 				self.printMessage(msg, "Exception socket.timeout:  " + str(e) + ". Line: " + format(sys.exc_info()[-1].tb_lineno) )
-				return
+				return False
 
 			except socket.error as e:
 				self.printMessage(msg, "Exception socket.error:  " + str(e) + ". Line: " + format(sys.exc_info()[-1].tb_lineno) )
-				return
+				return False
 			
 			except requests.ConnectTimeout as e:
 				self.printMessage(msg, "Exception  ConnectTimeout:  " + str(e) + ". Line: " + format(sys.exc_info()[-1].tb_lineno) )
-				return
+				return False
 
 	'''def unpackUPX(self, msg, maliciousFile):
 
@@ -125,7 +126,8 @@ class unpack(BotPlugin):
 
 		#If the file come from Internet
 		if "http" in sample :
-			self.download(msg, filepath, sample)
+			if not self.download(msg, filepath, sample):
+				return False
 
 		#If the file must be uploaded
 		else:
@@ -159,6 +161,6 @@ class unpack(BotPlugin):
 		else:
 			self.printMessage(msg, "Unknown packer.")'''
 
-		self.malware(msg, filepath)
+		self.malw(msg, filepath)
 
 
