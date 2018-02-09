@@ -662,6 +662,40 @@ class bitcoin(BotPlugin):
 
 			return value
 
+	@botcmd
+	def cloak(self, msg, args):
+			"""
+			Check the omisego value
+			"""
+			requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+			requests_flare = cfscrape.create_scraper()
+			r =requests_flare.get("https://min-api.cryptocompare.com/data/price?fsym=CLOAK&tsyms=BTC,USD,EUR", headers=self.headers)
+			r.raise_for_status()
+
+			data = json.loads(r.content.decode('utf-8'))
+	    
+			conversion_BTC = data['BTC']
+			conversion_dollar = data['USD']
+			conversion_euro = data['EUR']
+
+			r = requests_flare.get("https://min-api.cryptocompare.com/data/histohour?fsym=CLOAK&tsym=USD&limit=1", headers=self.headers)
+
+			dataset = json.loads(r.content.decode('utf-8'))
+
+			oldValue = dataset['Data'][0]['high']
+			currentValue = dataset['Data'][1]['high']
+
+			diff =  currentValue - oldValue
+
+			percent = round(diff / currentValue * 100, 2)
+
+			if percent > 0:
+				value = "1 CLOAK = %s EURO or %s USD or %s Bitcoin. Average +%s%%" % (conversion_euro, conversion_dollar, conversion_BTC, percent)
+			else:	
+				value = "1 CLOAK = %s EURO or %s USD or %s Bitcoin. Average %s%%" % (conversion_euro, conversion_dollar, conversion_BTC, percent)
+
+			return value
+
 
 
 	@botcmd
@@ -685,6 +719,7 @@ class bitcoin(BotPlugin):
 		rtn += "\n" + self.lepen(msg, args)
 		rtn += "\n" + self.macron(msg, args)
 		rtn += "\n" + self.trx(msg, args)
+		rtn += "\n" + self.cloak(msg, args)
 
 		return rtn
 
