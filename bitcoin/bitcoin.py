@@ -494,6 +494,142 @@ class bitcoin(BotPlugin):
 			return value
 
 	@botcmd
+	def etc(self, msg, args):
+			"""
+			Check the omisego value
+			"""
+			requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+			requests_flare = cfscrape.create_scraper()
+			r =requests_flare.get("https://min-api.cryptocompare.com/data/price?fsym=ETC&tsyms=BTC,USD,EUR", headers=self.headers)
+			r.raise_for_status()
+
+			data = json.loads(r.content.decode('utf-8'))
+	    
+			conversion_BTC = data['BTC']
+			conversion_dollar = data['USD']
+			conversion_euro = data['EUR']
+
+			r = requests_flare.get("https://min-api.cryptocompare.com/data/histohour?fsym=ETC&tsym=USD&limit=1", headers=self.headers)
+
+			dataset = json.loads(r.content.decode('utf-8'))
+
+			oldValue = dataset['Data'][0]['high']
+			currentValue = dataset['Data'][1]['high']
+
+			diff =  currentValue - oldValue
+
+			percent = round(diff / currentValue * 100, 2)
+
+			if percent > 0:
+				value = "1 Ethereum Classic = %s EURO or %s USD or %s Bitcoin. Average +%s%%" % (conversion_euro, conversion_dollar, conversion_BTC, percent)
+			else:	
+				value = "1 Ethereum Classic = %s EURO or %s USD or %s Bitcoin. Average %s%%" % (conversion_euro, conversion_dollar, conversion_BTC, percent)
+
+			return value
+
+	@botcmd
+	def xvg(self, msg, args):
+			"""
+			Check the omisego value
+			"""
+			requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+			requests_flare = cfscrape.create_scraper()
+			r =requests_flare.get("https://min-api.cryptocompare.com/data/price?fsym=XVG&tsyms=BTC,USD,EUR", headers=self.headers)
+			r.raise_for_status()
+
+			data = json.loads(r.content.decode('utf-8'))
+	    
+			conversion_BTC = data['BTC']
+			conversion_dollar = data['USD']
+			conversion_euro = data['EUR']
+
+			r = requests_flare.get("https://min-api.cryptocompare.com/data/histohour?fsym=XVG&tsym=USD&limit=1", headers=self.headers)
+
+			dataset = json.loads(r.content.decode('utf-8'))
+
+			oldValue = dataset['Data'][0]['high']
+			currentValue = dataset['Data'][1]['high']
+
+			diff =  currentValue - oldValue
+
+			percent = round(diff / currentValue * 100, 2)
+
+			if percent > 0:
+				value = "1 Verge = %s EURO or %s USD or %s Bitcoin. Average +%s%%" % (conversion_euro, conversion_dollar, conversion_BTC, percent)
+			else:	
+				value = "1 Verge = %s EURO or %s USD or %s Bitcoin. Average %s%%" % (conversion_euro, conversion_dollar, conversion_BTC, percent)
+
+			return value
+
+	@botcmd
+	def lepen(self, msg, args):
+			"""
+			Check the omisego value
+			"""
+			requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+			requests_flare = cfscrape.create_scraper()
+			r =requests_flare.get("https://min-api.cryptocompare.com/data/price?fsym=LEPEN&tsyms=BTC,USD,EUR", headers=self.headers)
+			r.raise_for_status()
+
+			data = json.loads(r.content.decode('utf-8'))
+	    
+			conversion_BTC = data['BTC']
+			conversion_dollar = data['USD']
+			conversion_euro = data['EUR']
+
+			r = requests_flare.get("https://min-api.cryptocompare.com/data/histohour?fsym=LEPEN&tsym=USD&limit=1", headers=self.headers)
+
+			dataset = json.loads(r.content.decode('utf-8'))
+
+			oldValue = dataset['Data'][0]['high']
+			currentValue = dataset['Data'][1]['high']
+
+			diff =  currentValue - oldValue
+
+			percent = round(diff / currentValue * 100, 2)
+
+			if percent > 0:
+				value = "1 Lepen Coin = %s EURO or %s USD or %s Bitcoin. Average +%s%%" % (conversion_euro, conversion_dollar, conversion_BTC, percent)
+			else:	
+				value = "1 Lepen Coin = %s EURO or %s USD or %s Bitcoin. Average %s%%" % (conversion_euro, conversion_dollar, conversion_BTC, percent)
+
+			return value
+	@botcmd
+	def macron(self, msg, args):
+			"""
+			Check the omisego value
+			"""
+			requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+			requests_flare = cfscrape.create_scraper()
+			r =requests_flare.get("https://min-api.cryptocompare.com/data/price?fsym=MCRN&tsyms=BTC,USD,EUR", headers=self.headers)
+			r.raise_for_status()
+
+			data = json.loads(r.content.decode('utf-8'))
+	    
+			conversion_BTC = data['BTC']
+			conversion_dollar = data['USD']
+			conversion_euro = data['EUR']
+
+			r = requests_flare.get("https://min-api.cryptocompare.com/data/histohour?fsym=MCRN&tsym=USD&limit=1", headers=self.headers)
+
+			dataset = json.loads(r.content.decode('utf-8'))
+
+			oldValue = dataset['Data'][0]['high']
+			currentValue = dataset['Data'][1]['high']
+
+			diff =  currentValue - oldValue
+
+			percent = round(diff / currentValue * 100, 2)
+
+			if percent > 0:
+				value = "1 Macron Coin = %s EURO or %s USD or %s Bitcoin. Average +%s%%" % (conversion_euro, conversion_dollar, conversion_BTC, percent)
+			else:	
+				value = "1 Macron Coin = %s EURO or %s USD or %s Bitcoin. Average %s%%" % (conversion_euro, conversion_dollar, conversion_BTC, percent)
+
+			return value
+
+
+	@botcmd
 	def coincoin(self, msg, args):
 		rtn = self.bitcoin(msg, args)
 		rtn += "\n" + self.bch(msg, args)
@@ -507,7 +643,12 @@ class bitcoin(BotPlugin):
 		rtn += "\n" + self.neo(msg, args)
 		rtn += "\n" + self.xlm(msg, args)
 		rtn += "\n" + self.omg(msg, args)
-		tn += "\n" + self.iot(msg, args)
+		rtn += "\n" + self.iot(msg, args)
+		rtn += "\n" + self.rdd(msg, args)
+		rtn += "\n" + self.etc(msg, args)
+		rtn += "\n" + self.xvg(msg, args)
+		rtn += "\n" + self.lepen(msg, args)
+		rtn += "\n" + self.macron(msg, args)
 
 		return rtn
 
